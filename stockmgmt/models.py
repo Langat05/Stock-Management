@@ -29,7 +29,7 @@ class Stock(models.Model):
     received_from = models.CharField(max_length=30, blank=True, null=True)
     issue_quantity = models.IntegerField(default='0', blank=True, null=True)
     last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-    reoder_level = models.IntegerField(default='0', blank=True, null=True)
+    reorder_level = models.IntegerField(default='0', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
 

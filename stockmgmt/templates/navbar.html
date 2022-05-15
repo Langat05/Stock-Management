@@ -19,15 +19,22 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
+                {% if request.user.is_authenticated %}
+
                 <li class="nav-item">
                     <a class="nav-link" href="/list_item">List Items</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/add_items">Add Items</a>
                 </li>
+                {% endif %}
+                <ul class="navbar-nav" style="margin-left:35em">
+                    {% if request.user.is_authenticated %}
+                    <li><a href="/accounts/logout"><button class="btn btn-danger">{{ user }} | Logout</button></a></li>
+                    {% else %}
+                    <li style="padding-top: 10px;"><a href="/accounts/login" style="color:white;text-decoration: none;">Login</a></li>
+                    {% endif %}
+                </ul>
             </ul>
         </div>
     </nav>

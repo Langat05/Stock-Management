@@ -1,11 +1,12 @@
 from email import header
 from django.shortcuts import render, redirect
-from .forms import StockCreateForm, StockSearchForm, StockUpdateForm
+from .forms import StockCreateForm, StockSearchForm, StockUpdateForm, ReorderLevelForm
 from .models import *
 from django.http import HttpResponse
 import csv
 from django.contrib import messages
 from .forms import IssueForm, ReceiveForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -14,7 +15,7 @@ from .forms import IssueForm, ReceiveForm
 def home(request):
     return render(request, "home.html")
 
-
+@login_required
 def list_item(request):
     header = 'LIST OF ITEMS'
     form = StockSearchForm(request.POST or None)
@@ -47,7 +48,7 @@ def list_item(request):
 
     return render(request, "list_item.html", context)
 
-
+@login_required
 def add_items(request):
     form = StockCreateForm(request.POST or None)
     if form.is_valid():
@@ -60,7 +61,7 @@ def add_items(request):
     }
     return render(request, "add_items.html", context)
 
-
+@login_required
 def update_items(request, pk):
     queryset = Stock.objects.get(id=pk)
     form = StockUpdateForm(instance=queryset)
@@ -76,7 +77,7 @@ def update_items(request, pk):
     }
     return render(request, 'add_items.html', context)
 
-
+@login_required
 def delete_items(request, pk):
     queryset = Stock.objects.get(id=pk)
     if request.method == 'POST':
@@ -85,7 +86,7 @@ def delete_items(request, pk):
         return redirect('/list_item')
     return render(request, 'delete_items.html')
 
-
+@login_required
 def stock_detail(request, pk):
     queryset = Stock.objects.get(id=pk)
     context = {
@@ -93,7 +94,7 @@ def stock_detail(request, pk):
     }
     return render(request, "stock_detail.html", context)
 
-
+@login_required
 def issue_items(request, pk):
     queryset = Stock.objects.get(id=pk)
     form = IssueForm(request.POST or None, instance=queryset)
@@ -116,7 +117,7 @@ def issue_items(request, pk):
     }
     return render(request, "add_items.html", context)
 
-
+@login_required
 def receive_items(request, pk):
     queryset = Stock.objects.get(id=pk)
     form = ReceiveForm(request.POST or None, instance=queryset)
@@ -137,4 +138,19 @@ def receive_items(request, pk):
     }
     return render(request, "add_items.html", context)
 
+@login_required
+def reorder_level(request, pk):
+    queryset = Stock.objects.get(id=pk)
+    form = ReorderLevelForm(request.POST or None, instance=queryset)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Reorder level for " + str(instance.item_name) +
+                         " is updated to " + str(instance.reorder_level))
 
+        return redirect("/list_item")
+    context = {
+        "instance": queryset,
+        "form": form,
+    }
+    return render(request, "add_items.html", context)

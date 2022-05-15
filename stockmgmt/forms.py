@@ -13,7 +13,8 @@ class StockCreateForm(forms.ModelForm):
             raise forms.ValidationError('This field is required')
         for instance in Stock.objects.all():
             if instance.category == category:
-                raise forms.ValidationError( ' This category is already created')
+                raise forms.ValidationError(
+                    ' This category is already created')
         return category
 
     def clean_item_name(self):
@@ -47,3 +48,9 @@ class ReceiveForm(forms.ModelForm):
     class Meta:
         model = Stock
         fields = ['receive_quantity', 'received_from']
+
+
+class ReorderLevelForm(forms.ModelForm):
+    class Meta:
+        model = Stock
+        fields = ['reorder_level']
