@@ -81,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stockmgmt',
-        'USER': 'Alpha',
+        'USER': 'myusername',
         'PASSWORD': 'Langat5004#@!',
     }
 }

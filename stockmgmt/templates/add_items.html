@@ -23,10 +23,20 @@
     <main role="main" class="container">
         <div class="jumbotron">
             <h1>{{title}}</h1>
-            <form method="POST" action="">{% csrf_token %}
-                {{form|crispy}}
-                <input type="submit" value="Save">
-            </form>
+            <div class="row">
+                <!--Start of row-->
+                <div class="col-sm-5">
+                    <!--Start of col-->
+                    <div class="display_table">
+                        <form method='POST' action=''>{% csrf_token %}
+                            {{form|crispy}}
+                            <input class="btn btn-primary" type="submit" value='Save' />
+                        </form>
+                    </div>
+                </div>
+                <!--End of col-->
+            </div>
+            <!--End of row-->
         </div>
     </main>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
