@@ -78,7 +78,7 @@
                                             style="text-decoration: none;">{{instance.quantity}}</a>
                     </div>
                     {% else %}
-                    <a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a>
+                    <a href="{% url 'stock_detail' instance.id %}" style="text-decoration: none;">{{instance.quantity}}</a>
                     {% endif %}
                     </td>
                     <td><a href="{% url 'reorder_level' instance.id %}"

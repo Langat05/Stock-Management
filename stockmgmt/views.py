@@ -1,6 +1,6 @@
 from email import header
 from django.shortcuts import render, redirect
-from .forms import StockCreateForm, StockSearchForm, StockUpdateForm, ReorderLevelForm
+from .forms import StockCreateForm, StockHistorySearchForm, StockUpdateForm, ReorderLevelForm, StockSearchForm
 from .models import *
 from django.http import HttpResponse
 import csv
@@ -177,7 +177,7 @@ def reorder_level(request, pk):
 def list_history(request):
     header = 'LIST OF ITEMS'
     queryset = StockHistory.objects.all()
-    form = StockSearchForm(request.POST or None)
+    form = StockHistorySearchForm(request.POST or None)
     context = {
         "form": form,
         "header": header,
