@@ -29,8 +29,8 @@ SECRET_KEY = '_d$vo5urv%0j6s(+)nd-)o(faf3g_hzpm9e2is8*gflecd73%5'
 DEBUG = False
 
 ALLOWED_HOSTS = ['https://alphagrovet.herokuapp.com/',
-'localhost',
-'127.0.0.1']
+                 'localhost',
+                 '127.0.0.1']
 
 
 # Application definition
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -138,5 +139,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '/static/'),
 ]
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 django_heroku.settings(locals())
