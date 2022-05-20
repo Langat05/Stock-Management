@@ -13,13 +13,13 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-	title = 'Welcome: This is Alpha Agrovet Stock Management Space'
-	form = 'Welcome: This is Alpha Agrovet Stock Management Space'
-	context = {
-		"title": title,
-		"test": form,
-	}
-	return redirect('/list_item')
+    title = 'Welcome: This is Alpha Agrovet Stock Management Space'
+    form = 'Welcome: This is Alpha Agrovet Stock Management Space'
+    context = {
+        "title": title,
+        "test": form,
+    }
+    return redirect('/list_item')
 
 
 @login_required
@@ -186,7 +186,11 @@ def list_history(request):
     if request.method == 'POST':
         category = form['category'].value()
         queryset = StockHistory.objects.filter(
-            item_name__icontains=form['item_name'].value()
+            item_name__icontains=form['item_name'].value(),
+            last_updated__range=[
+                form['start_date'].value(),
+                form['end_date'].value()
+            ]
         )
 
         if (category != ''):
