@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import mimetypes
+import django_heroku
 
 mimetypes.add_type("text/css", ".css", True)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_d$vo5urv%0j6s(+)nd-)o(faf3g_hzpm9e2is8*gflecd73%5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -108,8 +109,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-ACCOUNT_ACTIVATION_DAYS = 1 # One-week activation window
-REGISTRATION_AUTO_LOGIN = False # Automatically log the user in.
+ACCOUNT_ACTIVATION_DAYS = 1  # One-week activation window
+REGISTRATION_AUTO_LOGIN = False  # Automatically log the user in.
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 
@@ -133,5 +134,7 @@ USE_TZ = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'/static/'),
+    os.path.join(BASE_DIR, '/static/'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+django_heroku.settings(locals())
