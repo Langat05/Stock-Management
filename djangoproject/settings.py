@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_d$vo5urv%0j6s(+)nd-)o(faf3g_hzpm9e2is8*gflecd73%5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['https://alphagrovet.herokuapp.com/',
                  'localhost',
